@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ViewerJS</title>
+	<script src="https://unpkg.com/jquery@3/dist/jquery.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="viewer.min.css">
+	<script type="text/javascript" src="viewer.min.js"></script>
+</head>
+<body>
+	<style type="text/css">
+		img{
+			cursor: pointer;
+		}
+	</style>
+
+	<h2>Default / Gallery</h2>
+	<div id="images">
+		<img src="1.webp" style="width: 150px;">
+		<img src="2.png" style="width: 150px;">
+		<img src="3.png" style="width: 150px;">
+	</div>
+
+	<h2>Custom Toolbar</h2>
+	<img src="1.webp" class="viewer" style="width: 150px;">
+	<img src="2.png" class="viewer" style="width: 150px;">
+	<img src="3.png" class="viewer" style="width: 150px;">
+
+	<script type="text/javascript">
+	    new Viewer(document.querySelector('#images'), {
+	            toolbar: true,
+	            navbar: true
+	        }
+	    );
+
+	    $('img.viewer').on('click', function(){
+    		var image = new Image();
+    		image.src = $(this).attr('src');
+
+    		var viewer = new Viewer(image, {
+	            navbar: false,
+	            toolbar: {
+				    zoomIn: true,
+				    zoomOut: true,
+				    oneToOne: true,
+				    reset: true,
+				    prev: false,
+				    play: false,
+				    next: false,
+				    rotateLeft: true,
+				    rotateRight: true,
+				    flipHorizontal: true,
+				    flipVertical: true,
+			        download: function() {
+			            const a = document.createElement('a');
+			            a.href = viewer.image.src;
+			            a.download = viewer.image.alt;
+			            document.body.appendChild(a);
+			            a.click();
+			            document.body.removeChild(a);
+			        },
+	            },
+    			hidden: function () {
+    				viewer.destroy();
+    			}
+    		}).show();
+	    });
+	</script>
+</body>
+</html>

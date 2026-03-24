@@ -1,0 +1,1173 @@
+/* ============================================================
+   SIKAT UI  ·  Light Theme  ·  Bootstrap / SweetAlert2 / jQuery safe
+   All selectors prefixed  →  sikat-*
+   All CSS variables prefixed  →  --sikat-*
+   ============================================================ */
+
+:root {
+  --sikat-sidebar-w: 264px;
+  --sikat-sidebar-w-mini: 72px;
+  --sikat-topbar-h: 60px;
+
+  /* Palette */
+  --sikat-blue-50: #eff6ff;
+  --sikat-blue-100: #dbeafe;
+  --sikat-blue-200: #bfdbfe;
+  --sikat-blue-500: #3b82f6;
+  --sikat-blue-600: #2563eb;
+  --sikat-blue-700: #1d4ed8;
+  --sikat-blue-800: #1e40af;
+  --sikat-blue-900: #1e3a8a;
+
+  --sikat-bg: #f0f5ff;
+  --sikat-surface: #ffffff;
+  --sikat-border: #dde8fb;
+  --sikat-border-2: #c7d9f8;
+
+  --sikat-text: #0f1d3a;
+  --sikat-text-muted: #64748b;
+  --sikat-text-light: #94a3b8;
+
+  --sikat-gold: #f59e0b;
+  --sikat-green: #10b981;
+
+  --sikat-radius: 16px;
+  --sikat-radius-sm: 10px;
+
+  --sikat-shadow-sm:
+    0 1px 4px rgba(37, 99, 235, 0.07), 0 2px 12px rgba(37, 99, 235, 0.05);
+  --sikat-shadow:
+    0 4px 20px rgba(37, 99, 235, 0.1), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --sikat-shadow-lg:
+    0 12px 40px rgba(37, 99, 235, 0.13), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Scope reset */
+.sikat-root *,
+.sikat-root *::before,
+.sikat-root *::after {
+  box-sizing: border-box;
+}
+
+/* ── Root ── */
+.sikat-root {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: var(--sikat-bg);
+  background-image:
+    radial-gradient(
+      ellipse at 10% 88%,
+      rgba(59, 130, 246, 0.07) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse at 90% 6%,
+      rgba(99, 102, 241, 0.06) 0%,
+      transparent 50%
+    );
+  color: var(--sikat-text);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   TOPBAR  (always visible, full-width, sits above everything)
+   ============================================================ */
+.sikat-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--sikat-topbar-h);
+  background: var(--sikat-surface);
+  border-bottom: 1px solid var(--sikat-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 0 0;
+  z-index: 1050;
+  box-shadow: var(--sikat-shadow-sm);
+}
+
+/* Left portion of topbar (holds brand + toggle) */
+.sikat-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 100%;
+  /* width mirrors the sidebar so brand lines up perfectly */
+  width: var(--sikat-sidebar-w);
+  flex-shrink: 0;
+  border-right: 1px solid var(--sikat-border);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.sikat-root.sikat-collapsed .sikat-topbar-left {
+  width: var(--sikat-sidebar-w-mini);
+}
+
+/* Brand inside topbar-left */
+.sikat-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none !important;
+}
+
+.sikat-brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4);
+  flex-shrink: 0;
+}
+
+.sikat-brand-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    opacity 0.25s,
+    width 0.3s;
+  white-space: nowrap;
+}
+.sikat-brand-text strong {
+  font-family: "Sora", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sikat-blue-800);
+  letter-spacing: 0.04em;
+}
+.sikat-brand-text span {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--sikat-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Sidebar toggle button (inside topbar-left, right edge) */
+.sikat-toggle-btn {
+  all: unset;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--sikat-blue-700);
+  font-size: 16px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.3s;
+}
+.sikat-toggle-btn:hover {
+  background: var(--sikat-blue-50);
+  color: var(--sikat-blue-600);
+}
+.sikat-root.sikat-collapsed .sikat-toggle-btn {
+  transform: rotate(180deg);
+}
+
+/* Right portion: actions */
+.sikat-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sikat-topbar-btn {
+  all: unset;
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sikat-radius-sm);
+  color: var(--sikat-text-muted);
+  font-size: 15px;
+  position: relative;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.sikat-topbar-btn:hover {
+  background: var(--sikat-blue-50);
+  color: var(--sikat-blue-600);
+}
+
+/* Notification badge */
+.sikat-notif-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/* Search bar */
+.sikat-topbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sikat-blue-50);
+  border: 1px solid var(--sikat-blue-100);
+  border-radius: 10px;
+  padding: 7px 13px;
+  margin-right: 6px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.sikat-topbar-search:focus-within {
+  border-color: var(--sikat-blue-300, #93c5fd);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+.sikat-topbar-search i {
+  color: var(--sikat-text-muted);
+  font-size: 13px;
+}
+.sikat-topbar-search input {
+  all: unset;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  color: var(--sikat-text);
+  width: 180px;
+}
+.sikat-topbar-search input::placeholder {
+  color: var(--sikat-text-light);
+}
+
+/* User chip */
+.sikat-topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 12px 5px 5px;
+  border-radius: 40px;
+  cursor: pointer;
+  border: 1px solid var(--sikat-border);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  margin-left: 4px;
+}
+.sikat-topbar-user:hover {
+  background: var(--sikat-blue-50);
+  border-color: var(--sikat-blue-200);
+}
+
+.sikat-topbar-avatar {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.sikat-topbar-uname {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sikat-text);
+  white-space: nowrap;
+}
+.sikat-topbar-user i {
+  font-size: 10px;
+  color: var(--sikat-text-muted);
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sikat-sidebar {
+  position: fixed;
+  top: var(--sikat-topbar-h);
+  left: 0;
+  width: var(--sikat-sidebar-w);
+  height: calc(100vh - var(--sikat-topbar-h));
+  background: linear-gradient(
+    180deg,
+    var(--sikat-blue-900) 0%,
+    var(--sikat-blue-700) 55%,
+    var(--sikat-blue-800) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  z-index: 1040;
+  transition:
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 3px 0 24px rgba(29, 78, 216, 0.16);
+}
+
+/* Dot texture */
+.sikat-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+/* Collapsed state (desktop) */
+.sikat-root.sikat-collapsed .sikat-sidebar {
+  width: var(--sikat-sidebar-w-mini);
+}
+
+/* ── Nav ── */
+.sikat-sidebar-nav {
+  flex: 1;
+  padding: 16px 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
+.sikat-sidebar-nav::-webkit-scrollbar {
+  width: 3px;
+}
+.sikat-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+}
+
+.sikat-nav-section {
+  margin-bottom: 6px;
+}
+
+.sikat-nav-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 14px 5px;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.sikat-root.sikat-collapsed .sikat-nav-label {
+  opacity: 0;
+}
+
+.sikat-nav-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 8px 10px 14px;
+}
+
+/* Nav item */
+.sikat-nav-item {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--sikat-radius-sm);
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.58) !important;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    padding 0.3s;
+  position: relative;
+  text-decoration: none !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sikat-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+
+.sikat-nav-item.sikat-active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff !important;
+  font-weight: 600;
+}
+.sikat-nav-item.sikat-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 3px;
+  background: #fbbf24;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Nav icon via Font Awesome */
+.sikat-nav-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+  transition: margin 0.3s;
+}
+
+/* Collapsed: center icon, hide text */
+.sikat-root.sikat-collapsed .sikat-nav-item {
+  padding: 11px 0;
+  justify-content: center;
+  gap: 0;
+}
+.sikat-root.sikat-collapsed .sikat-nav-item::before {
+  display: none;
+}
+.sikat-root.sikat-collapsed .sikat-nav-text {
+  display: none;
+}
+.sikat-root.sikat-collapsed .sikat-nav-icon {
+  width: 100%;
+  text-align: center;
+}
+
+/* Tooltip for collapsed nav items */
+.sikat-root.sikat-collapsed .sikat-nav-item {
+  position: relative;
+}
+.sikat-root.sikat-collapsed .sikat-nav-item:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--sikat-blue-900);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 7px;
+  white-space: nowrap;
+  z-index: 999;
+  box-shadow: var(--sikat-shadow);
+  pointer-events: none;
+}
+
+/* ── Sidebar footer ── */
+.sikat-sidebar-footer {
+  padding: 12px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.sikat-sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--sikat-radius-sm);
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.sikat-sidebar-user:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sikat-root.sikat-collapsed .sikat-sidebar-user {
+  justify-content: center;
+  padding: 9px 0;
+}
+.sikat-root.sikat-collapsed .sikat-sidebar-user-info {
+  display: none;
+}
+
+.sikat-avatar-sm {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: #fff;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.sikat-user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sikat-user-role {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================================
+   OVERLAY (mobile)
+   ============================================================ */
+.sikat-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 29, 58, 0.4);
+  z-index: 1039;
+  backdrop-filter: blur(3px);
+  top: var(--sikat-topbar-h);
+}
+.sikat-overlay.sikat-visible {
+  display: block;
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+.sikat-main {
+  margin-left: var(--sikat-sidebar-w);
+  margin-top: var(--sikat-topbar-h);
+  min-height: calc(100vh - var(--sikat-topbar-h));
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sikat-root.sikat-collapsed .sikat-main {
+  margin-left: var(--sikat-sidebar-w-mini);
+}
+
+.sikat-content {
+  padding: 32px 32px 56px;
+  max-width: 1280px;
+}
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+.sikat-hero {
+  background: linear-gradient(
+    135deg,
+    var(--sikat-blue-900) 0%,
+    var(--sikat-blue-600) 48%,
+    var(--sikat-blue-800) 100%
+  );
+  border-radius: 20px;
+  padding: 34px 40px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sikat-shadow-lg);
+  animation: sikat-fade-up 0.46s ease both;
+}
+
+.sikat-hero::before {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -70px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.sikat-hero::after {
+  content: "";
+  position: absolute;
+  left: -30px;
+  bottom: -70px;
+  width: 190px;
+  height: 190px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.sikat-hero-deco {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.sikat-hero-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.58);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sikat-hero-name {
+  font-family: "Sora", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+  line-height: 1.25;
+  position: relative;
+  z-index: 1;
+}
+
+.sikat-hero-meta {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.sikat-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Stats */
+.sikat-stats-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.sikat-stat-card {
+  background: rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 13px;
+  padding: 13px 20px;
+  min-width: 95px;
+  flex: 1;
+  max-width: 175px;
+  transition: all 0.25s ease;
+}
+.sikat-stat-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.sikat-stat-value {
+  font-family: "Sora", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fbbf24;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.sikat-stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECTION HEADER
+   ============================================================ */
+.sikat-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sikat-section-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: "Sora", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sikat-text);
+}
+
+.sikat-section-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--sikat-blue-500), #6366f1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.22);
+}
+
+.sikat-section-badge {
+  background: var(--sikat-blue-50);
+  border: 1px solid var(--sikat-blue-200);
+  color: var(--sikat-blue-600);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   MODULE CARDS
+   ============================================================ */
+.sikat-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+}
+
+.sikat-module-card {
+  background: var(--sikat-surface);
+  border: 1px solid var(--sikat-border);
+  border-radius: var(--sikat-radius);
+  padding: 22px;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sikat-shadow-sm);
+  animation: sikat-fade-up 0.45s ease both;
+}
+
+.sikat-module-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sikat-blue-500), #818cf8);
+  opacity: 0;
+  transition: opacity 0.28s;
+  border-radius: var(--sikat-radius) var(--sikat-radius) 0 0;
+}
+
+.sikat-module-card:hover {
+  border-color: var(--sikat-blue-200);
+  transform: translateY(-4px);
+  box-shadow: var(--sikat-shadow-lg);
+}
+.sikat-module-card:hover::before {
+  opacity: 1;
+}
+
+.sikat-module-card:nth-child(1) {
+  animation-delay: 0.04s;
+}
+.sikat-module-card:nth-child(2) {
+  animation-delay: 0.09s;
+}
+.sikat-module-card:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.sikat-module-card:nth-child(4) {
+  animation-delay: 0.19s;
+}
+.sikat-module-card:nth-child(5) {
+  animation-delay: 0.24s;
+}
+
+.sikat-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.sikat-module-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.sikat-icon-blue {
+  background: var(--sikat-blue-50);
+  color: var(--sikat-blue-700);
+  border: 1px solid var(--sikat-blue-200);
+}
+.sikat-icon-amber {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #d97706;
+}
+.sikat-icon-brown {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.sikat-icon-purple {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+.sikat-icon-green {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.sikat-icon-orange {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+.sikat-icon-red {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.sikat-icon-yellow {
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fde68a;
+}
+.sikat-icon-gray {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+.sikat-icon-teal {
+  background: #f0fdfa;
+  color: #0f766e;
+  border: 1px solid #99f6e4;
+}
+.sikat-icon-cyan {
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+.sikat-icon-rose {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #e11d48;
+}
+
+.sikat-card-badges {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.sikat-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: baseline !important;
+  line-height: 1.5 !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+.sikat-badge-blue {
+  background: var(--sikat-blue-50);
+  color: var(--sikat-blue-700);
+  border: 1px solid var(--sikat-blue-200);
+}
+.sikat-badge-amber {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #d97706;
+}
+.sikat-badge-brown {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.sikat-badge-purple {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+.sikat-badge-green {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.sikat-badge-orange {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+.sikat-badge-red {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.sikat-badge-yellow {
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fde68a;
+}
+.sikat-badge-gray {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+.sikat-badge-teal {
+  background: #f0fdfa;
+  color: #0f766e;
+  border: 1px solid #99f6e4;
+}
+.sikat-badge-cyan {
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+.sikat-badge-rose {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #e11d48;
+}
+
+.sikat-badge-wajib {
+  background: var(--sikat-blue-50);
+  color: var(--sikat-blue-700);
+  border: 1px solid var(--sikat-blue-200);
+}
+.sikat-badge-teknis {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.sikat-badge-strategis {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+.sikat-badge-lulus {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.sikat-badge-berlangsung {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.sikat-module-title {
+  font-family: "Sora", sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--sikat-text);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.sikat-module-desc {
+  font-size: 12px;
+  color: var(--sikat-text-muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.sikat-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 13px;
+}
+
+.sikat-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--sikat-text-muted);
+  font-weight: 500;
+}
+.sikat-meta-item i {
+  font-size: 12px;
+  color: var(--sikat-blue-400, #60a5fa);
+}
+
+/* Progress (prefixed to avoid Bootstrap .progress conflict) */
+.sikat-progress-track {
+  height: 5px;
+  background: var(--sikat-blue-50);
+  border: 1px solid var(--sikat-blue-100);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.sikat-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--sikat-blue-500), #60a5fa);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sikat-progress-fill.sikat-fill-full {
+  background: linear-gradient(90deg, var(--sikat-green), #34d399);
+}
+.sikat-progress-fill.sikat-fill-mid {
+  background: linear-gradient(90deg, var(--sikat-gold), #fbbf24);
+}
+
+.sikat-progress-label {
+  font-size: 11px;
+  color: var(--sikat-text-muted);
+  font-weight: 600;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes sikat-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  /* On mobile, sidebar is completely off-canvas (not mini) */
+  .sikat-sidebar {
+    transform: translateX(-100%);
+    width: var(
+      --sikat-sidebar-w
+    ) !important; /* always full-width when open on mobile */
+  }
+  .sikat-sidebar.sikat-open {
+    transform: translateX(0);
+    box-shadow: 6px 0 40px rgba(29, 78, 216, 0.28);
+  }
+
+  /* topbar-left shrinks to just the toggle + brand icon */
+  .sikat-topbar-left {
+    width: 60px !important;
+    border-right: none;
+  }
+  .sikat-brand-text {
+    display: none;
+  }
+
+  .sikat-main {
+    margin-left: 0 !important;
+  }
+
+  .sikat-topbar-search {
+    display: none;
+  }
+
+  .sikat-content {
+    padding: 20px 16px 40px;
+  }
+  .sikat-hero {
+    padding: 24px 20px;
+  }
+  .sikat-hero-name {
+    font-size: 22px;
+  }
+  .sikat-hero-deco {
+    display: none;
+  }
+  .sikat-modules-grid {
+    grid-template-columns: 1fr;
+  }
+  .sikat-stats-row {
+    gap: 10px;
+  }
+  .sikat-stat-card {
+    min-width: 80px;
+    padding: 11px 13px;
+  }
+  .sikat-stat-value {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sikat-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .sikat-stat-card {
+    max-width: none;
+  }
+  .sikat-hero-meta {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .sikat-meta-dot {
+    display: none;
+  }
+  .sikat-topbar-uname {
+    display: none;
+  }
+}
+
+/* SweetAlert2 font fix */
+.sikat-swal {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  border-radius: 18px !important;
+}

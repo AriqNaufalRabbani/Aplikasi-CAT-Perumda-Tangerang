@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Title -->
+	<title>Supernova Mobile</title>
+
+	<!-- Responsive -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Meta Tags required for Progressive Web App -->
+	<meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+	<meta name="theme-color" content="black">
+	
+
+	<style>
+		body {
+			width: 100%;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 0;
+			padding: 0;
+			background-color: #eee;
+			font-family: cursive;
+		}
+		.wrapper {
+			text-align: center;
+		}
+		h4 {
+			font-family: sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			margin: 10px;
+		}
+		.button {
+			display: block;
+			margin: 20px;
+			padding: 15px 30px;
+			background: #1451E5;
+			color: white;
+			font-family: arial;
+			/* letter-spacing: 5px; */
+			border-radius: 30px;
+			text-decoration: none;
+			box-shadow: 0 0 15px #22254C;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<img src="cdn/images/offline.png" alt="offline.png" style="width:55%;">
+		<h4>Check Your Internet Connection</h4>
+		<label>You maybe connection lost, please connect your internet connection</label>
+
+		<a href="." class="button" onclick="window.reload()">Retry</a>
+	</div>
+</body>
+</html>

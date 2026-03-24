@@ -1,0 +1,30 @@
+
+
+{
+    "name"      : "CRM Supernova",
+    "short_name": "CRM Supernova",
+    "icons"     : [
+        {
+            "src"       : "https://crm.supernova-id.com/crm/cdn/images/Logo_CRM/PNG/logo-144.png?<?=filemtime('cdn/images/Logo_CRM/PNG/logo-144.png')?>",
+            "sizes"     : "144x144",
+            "type"      : "image/png",
+            "purpose"   : "any" 
+        }, {
+            "src"       : "https://crm.supernova-id.com/crm/cdn/images/Logo_CRM/PNG/logo-152.png?<?=filemtime('cdn/images/Logo_CRM/PNG/logo-152.png')?>",
+            "sizes"     : "152x152",
+            "type"      : "image/png",
+            "purpose"   : "maskable"
+        }, {
+            "src"       : "https://crm.supernova-id.com/crm/cdn/images/Logo_CRM/PNG/logo-512.png?<?=filemtime('cdn/images/Logo_CRM/PNG/logo-512.png')?>",
+            "sizes"     : "512x512",
+            "type"      : "image/png",
+            "purpose"   : "maskable"
+        }
+    ],
+    "lang"              : "id-ID",
+    "start_url"         : "app://com.crm.supernova",
+    "scope"             : ".",
+    "display"           : "standalone",
+    "background_color"  : "white",
+    "theme_color"       : "black"
+}

@@ -1,0 +1,18 @@
+table.fixedHeader-floating {
+  background-color: white;
+}
+table.fixedHeader-floating.no-footer {
+  border-bottom-width: 0;
+}
+table.fixedHeader-locked {
+  position: absolute !important;
+  background-color: white;
+}
+/* .fixedHeader-floating>thead>tr>th{
+  display: table-cell !important;
+} */
+@media print {
+  table.fixedHeader-floating {
+    display: none;
+  }
+}

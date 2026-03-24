@@ -1,0 +1,107 @@
+<?php
+	error_reporting(0);
+	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+	header("Pragma: no-cache");
+    header('Content-type: application/xml');
+
+	$dsn	  = 'crm_bi'; // DB Name
+	$username = 'digipack'; //atau sesuai namauser anda
+	$password = '123456789'; //atau sesuai password anda
+	$conn 	  = odbc_connect($dsn, $username, $password, SQL_CURSOR_FORWARD_ONLY)
+	    or die('Error connecting to server. Server says: '.htmlspecialchars(odbc_errormsg()));
+
+    echo "<?xml version='1.0' encoding='UTF-8'?>\n
+        <urlset xmlns='https://www.sitemaps.org/schemas/sitemap/0.9' xmlns:xsi='https://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.sitemaps.org/schemas/sitemap/0.9 https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'>\n
+            <url>
+			  <loc>https://www.supernovadigipack.com/</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/about</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/pilih-kemasan/central-seal</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/pilih-kemasan/gusset</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/pilih-kemasan/standing-pouch</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/pilih-kemasan/three-block-seal</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/pilih-kemasan/vacuum-pack</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/daftar</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/panduan-belanja</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/syarat-dan-ketentuan</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/kebijakan-privasi</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/faq</loc>
+			  <lastmod>2021-06-30T17:11:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+			<url>
+			  <loc>https://www.supernovadigipack.com/blog</loc>
+			  <lastmod>2021-06-30T07:56:23+07:00</lastmod>
+			  <priority>0.80</priority>
+			</url>
+    ";
+
+    $Q = "
+    	SELECT 
+			Url,
+			UpdDt
+		FROM digipack..ec_blog
+		WHERE Aktif	= 'Y'
+		ORDER BY CrtDt ASC
+    ";
+    $getPage = odbc_exec($conn, $Q);
+    while (odbc_fetch_row($getPage)) {
+    	$Url 	 = 'https://www.supernovadigipack.com/blog/artikel/' . trim(odbc_result($getPage, "Url"));
+    	$UpdDt 	 = trim(odbc_result($getPage, "UpdDt"));
+    	$Date 	 = date("Y-m-d", strtotime($UpdDt));
+    	$Time 	 = date("H:i:s", strtotime($UpdDt));
+    	$LastMod = $Date . "T" . $Time . "+07:00";
+
+    	echo "
+	    	<url>
+			  <loc>$Url</loc>
+			  <lastmod>$LastMod</lastmod>
+			  <priority>0.80</priority>
+			</url>
+		";
+    }
+
+    echo "</urlset>";
