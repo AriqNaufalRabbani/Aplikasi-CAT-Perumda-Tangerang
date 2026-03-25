@@ -17,12 +17,14 @@ class Dashboard extends Controller {
 		// $data['CheckLogin']				= USERID;
 
 		if($_SESSION['role'] == 'Peserta'){
+			$data['Modules'] 	= $this->model('MasterModul_model')->getModulesbyUser();
+			
 			$this->view('templates/header');
-			$this->view('dashboard/index');
+			$this->view('dashboard/index', $data);
 			$this->view('templates/footer');
 		}else{
 			$this->view('templates/header');
-			$this->view('dashboard/index');
+			$this->view('dashboard/admin');
 			$this->view('templates/footer');
 		}
 	}

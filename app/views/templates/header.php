@@ -272,7 +272,7 @@ if (!isset($_SESSION['userid'])) header("Location: " . BASE_URL . 'Login');
 					<span class="sikat-nav-label">Menu Utama</span>
 					<a
 						class="sikat-nav-item sikat-active"
-						href="#"
+						href="dashboard"
 						data-tooltip="Beranda">
 						<i class="sikat-nav-icon fa-solid fa-house"></i>
 						<span class="sikat-nav-text">Beranda</span>

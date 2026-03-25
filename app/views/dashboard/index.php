@@ -49,154 +49,131 @@
 
 <!-- Cards -->
 <div class="sikat-modules-grid">
-    <div
-        class="sikat-module-card"
-        data-title="Integritas & Etika ASN"
-        data-desc="Memahami kode etik, perilaku, dan standar integritas bagi Aparatur Sipil Negara."
-        data-pct="100">
-        <div class="sikat-card-top">
-            <div class="sikat-module-icon sikat-icon-blue">
-                <i class="fa-solid fa-scale-balanced"></i>
-            </div>
-            <div class="sikat-card-badges">
-                <span class="sikat-badge sikat-badge-wajib">Wajib</span>
-                <span class="sikat-badge sikat-badge-lulus"><i class="fa-solid fa-check"></i> Lulus</span>
-            </div>
-        </div>
-        <div class="sikat-module-title">Integritas &amp; Etika ASN</div>
-        <div class="sikat-module-desc">
-            Memahami kode etik, perilaku, dan standar integritas bagi
-            Aparatur Sipil Negara.
-        </div>
-        <div class="sikat-card-meta">
-            <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> 10 Soal</span>
-            <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> 25 Menit</span>
-        </div>
-        <div class="sikat-progress-track">
+    <?php
+    if ($data['Modules']) {
+        // echo '<pre>';
+        // echo print_r($data);
+        // echo '</pre>';
+        foreach ($data['Modules'] as $key => $value) {
+            $id             = $value['id'];
+            $module         = $value['module'];
+            $descr          = $value['descr'];
+            $kategori       = $value['kategori'];
+            $color          = $value['color'];
+            $durasi         = $value['durasi'];
+            $icon           = $value['icon'];
+            $aktif          = $value['aktif'];
+            $crtdt          = $value['crtdt'];
+            $crtby          = $value['crtby'];
+            $upddt          = $value['upddt'];
+            $updby          = $value['updby'];
+            $total_soal     = $value['total_soal'];
+            $status_ujian   = $value['status_ujian'];
+            ?>
             <div
-                class="sikat-progress-fill sikat-fill-full"
-                data-width="100"></div>
-        </div>
-        <div class="sikat-progress-label">100% selesai</div>
-    </div>
-
-    <div
-        class="sikat-module-card"
-        data-title="Pengadaan Barang & Jasa"
-        data-desc="Regulasi, prosedur, dan etika dalam pengadaan barang/jasa pemerintah daerah."
-        data-pct="100">
-        <div class="sikat-card-top">
-            <div class="sikat-module-icon sikat-icon-green">
-                <i class="fa-solid fa-clipboard-list"></i>
+                class="sikat-module-card"
+                data-id="<?php echo $id;?>"
+                data-title="<?php echo $module;?>"
+                data-desc="<?php echo $descr;?>"
+                data-pct="<?php echo $status_ujian;?>">
+                <div class="sikat-card-top">
+                    <div class="sikat-module-icon sikat-icon-<?php echo $color;?>">
+                        <i class="fa-solid <?php echo $icon;?>"></i>
+                    </div>
+                    <div class="sikat-card-badges">
+                        <span class="sikat-badge sikat-badge-<?php echo $color;?>"><?php echo $kategori;?></span>
+                        <!-- <span class="sikat-badge sikat-badge-lulus"><i class="fa-solid fa-check"></i> Lulus</span> -->
+                    </div>
+                </div>
+                <div class="sikat-module-title"><?php echo $module;?></div>
+                <div class="sikat-module-desc">
+                    <?php echo $descr;?>
+                </div>
+                <div class="sikat-card-meta">
+                    <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> <?php echo $total_soal;?> Soal</span>
+                    <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> <?php echo $durasi;?> Menit</span>
+                </div>
+                <div class="sikat-progress-track">
+                    <div
+                        class="sikat-progress-fill sikat-fill-full"
+                        data-width="<?php echo $status_ujian;?>"></div>
+                </div>
+                <div class="sikat-progress-label"><?php echo $status_ujian;?>% selesai</div>
             </div>
-            <div class="sikat-card-badges">
-                <span class="sikat-badge sikat-badge-wajib">Wajib</span>
-                <span class="sikat-badge sikat-badge-lulus"><i class="fa-solid fa-check"></i> Lulus</span>
-            </div>
-        </div>
-        <div class="sikat-module-title">Pengadaan Barang &amp; Jasa</div>
-        <div class="sikat-module-desc">
-            Regulasi, prosedur, dan etika dalam pengadaan barang/jasa
-            pemerintah daerah.
-        </div>
-        <div class="sikat-card-meta">
-            <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> 10 Soal</span>
-            <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> 25 Menit</span>
-        </div>
-        <div class="sikat-progress-track">
-            <div
-                class="sikat-progress-fill sikat-fill-full"
-                data-width="100"></div>
-        </div>
-        <div class="sikat-progress-label">100% selesai</div>
-    </div>
-
-    <div
-        class="sikat-module-card"
-        data-title="Pengelolaan Keuangan Daerah"
-        data-desc="Memahami prinsip, mekanisme, dan regulasi pengelolaan keuangan daerah yang akuntabel."
-        data-pct="60">
-        <div class="sikat-card-top">
-            <div class="sikat-module-icon sikat-icon-amber">
-                <i class="fa-solid fa-coins"></i>
-            </div>
-            <div class="sikat-card-badges">
-                <span class="sikat-badge sikat-badge-teknis">Teknis</span>
-                <span class="sikat-badge sikat-badge-berlangsung"><i class="fa-solid fa-spinner fa-spin"></i>
-                    Berlangsung</span>
-            </div>
-        </div>
-        <div class="sikat-module-title">Pengelolaan Keuangan Daerah</div>
-        <div class="sikat-module-desc">
-            Memahami prinsip, mekanisme, dan regulasi pengelolaan keuangan
-            daerah yang akuntabel.
-        </div>
-        <div class="sikat-card-meta">
-            <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> 10 Soal</span>
-            <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> 25 Menit</span>
-        </div>
-        <div class="sikat-progress-track">
-            <div
-                class="sikat-progress-fill sikat-fill-mid"
-                data-width="60"></div>
-        </div>
-        <div class="sikat-progress-label">60% selesai</div>
-    </div>
-
-    <div
-        class="sikat-module-card"
-        data-title="Standar Pelayanan Publik"
-        data-desc="Prinsip, standar, dan inovasi dalam memberikan pelayanan prima kepada masyarakat."
-        data-pct="0">
-        <div class="sikat-card-top">
-            <div class="sikat-module-icon sikat-icon-purple">
-                <i class="fa-solid fa-handshake"></i>
-            </div>
-            <div class="sikat-card-badges">
-                <span class="sikat-badge sikat-badge-teknis">Teknis</span>
-            </div>
-        </div>
-        <div class="sikat-module-title">Standar Pelayanan Publik</div>
-        <div class="sikat-module-desc">
-            Prinsip, standar, dan inovasi dalam memberikan pelayanan prima
-            kepada masyarakat.
-        </div>
-        <div class="sikat-card-meta">
-            <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> 10 Soal</span>
-            <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> 20 Menit</span>
-        </div>
-        <div class="sikat-progress-track">
-            <div class="sikat-progress-fill" data-width="0"></div>
-        </div>
-        <div class="sikat-progress-label">0% selesai</div>
-    </div>
-
-    <div
-        class="sikat-module-card"
-        data-title="Tata Kelola Pemerintahan"
-        data-desc="Good governance, reformasi birokrasi, dan manajemen kinerja pemerintah daerah."
-        data-pct="0">
-        <div class="sikat-card-top">
-            <div class="sikat-module-icon sikat-icon-rose">
-                <i class="fa-solid fa-landmark"></i>
-            </div>
-            <div class="sikat-card-badges">
-                <span class="sikat-badge sikat-badge-strategis">Strategis</span>
-            </div>
-        </div>
-        <div class="sikat-module-title">Tata Kelola Pemerintahan</div>
-        <div class="sikat-module-desc">
-            Good governance, reformasi birokrasi, dan manajemen kinerja
-            pemerintah daerah.
-        </div>
-        <div class="sikat-card-meta">
-            <span class="sikat-meta-item"><i class="fa-solid fa-file-lines"></i> 10 Soal</span>
-            <span class="sikat-meta-item"><i class="fa-regular fa-clock"></i> 25 Menit</span>
-        </div>
-        <div class="sikat-progress-track">
-            <div class="sikat-progress-fill" data-width="0"></div>
-        </div>
-        <div class="sikat-progress-label">0% selesai</div>
-    </div>
+            <?php
+        }
+    }
+    ?>
 </div>
 <!-- /sikat-modules-grid -->
+
+<script>
+    $(function() {
+        /* ── Animate progress bars ──────────────────────────────── */
+        setTimeout(function() {
+            $(".sikat-progress-fill").each(function() {
+                $(this).css("width", $(this).data("width") + "%");
+            });
+        }, 380);
+
+        /* ── Card click → SweetAlert2 ───────────────────────────── */
+        $(".sikat-module-card").on("click", function() {
+            var id      = $(this).data("id");
+            var title   = $(this).data("title");
+            var desc    = $(this).data("desc");
+            var pct     = parseInt($(this).data("pct"), 10);
+
+            var icon, btnLabel, statusHtml, url;
+            var showConfirm = true;
+
+            if (pct === 100) {
+                icon = "success";
+                showConfirm = false;
+                // btnLabel =
+                //     '<i class="fa-solid fa-award"></i>&nbsp; Lihat Sertifikat';
+                statusHtml =
+                    '<span style="color:#047857;font-weight:700;font-size:13px;"><i class="fa-solid fa-circle-check"></i> Modul telah selesai</span>';
+            } else if (pct > 0) {
+                icon = "info";
+                btnLabel =
+                    '<i class="fa-solid fa-play"></i>&nbsp; Lanjutkan';
+                statusHtml =
+                    '<span style="color:#c2410c;font-weight:700;font-size:13px;"><i class="fa-solid fa-hourglass-half"></i> Berlangsung &mdash; ' +
+                    pct +
+                    "% selesai</span>";
+                
+                url = "exam/" + id;
+            } else {
+                icon = "question";
+                btnLabel = '<i class="fa-solid fa-rocket"></i>&nbsp; Mulai';
+                statusHtml =
+                    '<span style="color:#64748b;font-weight:600;font-size:13px;"><i class="fa-regular fa-circle"></i> Belum dimulai</span>';
+                url = "exam/" + id;
+            }
+
+            Swal.fire({
+                title: title,
+                html: '<p style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:12px;">' +
+                    desc +
+                    "</p>" +
+                    '<div style="margin-top:8px;">' +
+                    statusHtml +
+                    "</div>",
+                icon: icon,
+                confirmButtonText: btnLabel,
+                confirmButtonColor: "#2563eb",
+                showConfirmButton: showConfirm,
+                showCancelButton: true,
+                cancelButtonText: "Tutup",
+                cancelButtonColor: "#94a3b8",
+                customClass: {
+                    popup: "sikat-swal"
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url; // <-- redirect di sini
+                }
+            });
+        });
+    });
+</script>

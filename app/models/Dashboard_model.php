@@ -3,6 +3,7 @@ defined('BASE_PATH') OR exit('No direct script access allowed');
 
 class Dashboard_model {
 	private $db;
+	private $userid;
 
 	public function __construct() {
 		$this->db 	 = new Database;

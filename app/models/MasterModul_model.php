@@ -14,6 +14,48 @@ class MasterModul_model extends Controller
         $this->UserID   =   USERID;
     }
 
+    public function getModulesbyUser()
+    {
+        $Query = "
+            SELECT 
+                m.id,
+                m.module,
+                m.descr,
+                m.kategori,
+                k.color,
+                m.durasi,
+                m.icon,
+                m.aktif,
+                m.crtdt,
+                m.crtby,
+                m.upddt,
+                m.updby,
+                COUNT(q.id) AS total_soal,
+                CASE 
+                    WHEN COUNT(ea.id) > 0 THEN '100'
+                    ELSE '0'
+                END AS status_ujian
+            FROM modules m
+            LEFT JOIN kategori k 
+                ON k.name = m.kategori
+            LEFT JOIN questions q 
+                ON q.id_module = m.id
+            LEFT JOIN exam_attempts ea 
+                ON ea.module_id = m.id 
+                AND ea.user_id = :user_id
+            GROUP BY 
+                m.id, m.module, m.descr, m.kategori, k.color,
+                m.durasi, m.icon, m.aktif,
+                m.crtdt, m.crtby, m.upddt, m.updby
+            ORDER BY m.kategori;
+        ";
+        $this->db->prepare($Query);
+        $this->db->execute([
+            ':user_id'       => $this->UserID,
+        ]);
+        return $this->db->fetchAll();
+    }
+
     public function getKategori()
     {
         $Query = "
@@ -192,10 +234,6 @@ class MasterModul_model extends Controller
 
                 return $Result;
             }
-
-            
-
-            
         } catch (Exception $e) {
             http_response_code(500);
             return [

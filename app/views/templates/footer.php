@@ -174,61 +174,6 @@
 					}
 				});
 
-				/* ── Animate progress bars ──────────────────────────────── */
-				setTimeout(function() {
-					$(".sikat-progress-fill").each(function() {
-						$(this).css("width", $(this).data("width") + "%");
-					});
-				}, 380);
-
-				/* ── Card click → SweetAlert2 ───────────────────────────── */
-				$(".sikat-module-card").on("click", function() {
-					var title = $(this).data("title");
-					var desc = $(this).data("desc");
-					var pct = parseInt($(this).data("pct"), 10);
-
-					var icon, btnLabel, statusHtml;
-
-					if (pct === 100) {
-						icon = "success";
-						btnLabel =
-							'<i class="fa-solid fa-award"></i>&nbsp; Lihat Sertifikat';
-						statusHtml =
-							'<span style="color:#047857;font-weight:700;font-size:13px;"><i class="fa-solid fa-circle-check"></i> Modul telah selesai</span>';
-					} else if (pct > 0) {
-						icon = "info";
-						btnLabel =
-							'<i class="fa-solid fa-play"></i>&nbsp; Lanjutkan Belajar';
-						statusHtml =
-							'<span style="color:#c2410c;font-weight:700;font-size:13px;"><i class="fa-solid fa-hourglass-half"></i> Berlangsung &mdash; ' +
-							pct +
-							"% selesai</span>";
-					} else {
-						icon = "question";
-						btnLabel = '<i class="fa-solid fa-rocket"></i>&nbsp; Mulai Belajar';
-						statusHtml =
-							'<span style="color:#64748b;font-weight:600;font-size:13px;"><i class="fa-regular fa-circle"></i> Belum dimulai</span>';
-					}
-
-					Swal.fire({
-						title: title,
-						html: '<p style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:12px;">' +
-							desc +
-							"</p>" +
-							'<div style="margin-top:8px;">' +
-							statusHtml +
-							"</div>",
-						icon: icon,
-						confirmButtonText: btnLabel,
-						confirmButtonColor: "#2563eb",
-						showCancelButton: true,
-						cancelButtonText: "Tutup",
-						cancelButtonColor: "#94a3b8",
-						customClass: {
-							popup: "sikat-swal"
-						},
-					});
-				});
 			});
 		</script>
 
